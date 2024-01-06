@@ -1,11 +1,15 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`create-exports should work 1`] = `
+exports[`create-exports 1`] = `
 {
-  "./": {
+  ".": {
     "import": "./index.js",
     "svelte": "./index.js",
     "types": "./index.d.ts",
+  },
+  "./*.js": {
+    "import": "./*.js",
+    "types": "./*.d.ts",
   },
   "./*.svelte": {
     "import": "./*.svelte",

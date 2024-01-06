@@ -14,6 +14,8 @@ const dir = "./package";
 const src = "./src";
 const pkg_json = join(dir, "package.json");
 
+export const essential_files = ["package.json", "README.md", "LICENSE"];
+
 export function npmPackage() {
   console.time("package");
 
@@ -23,7 +25,7 @@ export function npmPackage() {
 
   mkdirSync(dir);
 
-  ["./package.json", "./README.md", "./LICENSE"].forEach((file) => {
+  essential_files.forEach((file) => {
     copyFileSync(file, join(dir, file));
   });
 
