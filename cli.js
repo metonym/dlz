@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { npmPackage } from "./dist";
+import { npmPackage } from "./dist/index.js";
 
 npmPackage();
