@@ -1,0 +1,41 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create-exports should work 1`] = `
+{
+  "./": {
+    "import": "./index.js",
+    "svelte": "./index.js",
+    "types": "./index.d.ts",
+  },
+  "./*.svelte": {
+    "import": "./*.svelte",
+    "types": "./*.svelte.d.ts",
+  },
+  "./nested/*.json": {
+    "import": "./nested/*.json",
+    "types": undefined,
+  },
+  "./nested/nested-again": {
+    "import": "./nested/nested-again/index.js",
+    "svelte": undefined,
+    "types": "./nested/nested-again/index.d.ts",
+  },
+  "./subfolder": {
+    "import": "./subfolder/index.js",
+    "svelte": undefined,
+    "types": "./subfolder/index.d.ts",
+  },
+  "./subfolder/*.css": {
+    "import": "./subfolder/*.css",
+    "types": undefined,
+  },
+  "./subfolder/*.js": {
+    "import": "./subfolder/*.js",
+    "types": "./subfolder/*.d.ts",
+  },
+  "./subfolder/*.svelte": {
+    "import": "./subfolder/*.svelte",
+    "types": "./subfolder/*.svelte.d.ts",
+  },
+}
+`;

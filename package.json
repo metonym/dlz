@@ -1,0 +1,36 @@
+{
+  "name": "dlz",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Create a minimal NPM package",
+  "author": "Eric Liu (https://github.com/metonym)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "dlz": "./cli.js"
+  },
+  "scripts": {
+    "test": "bun test",
+    "build": "bun build ./src/index.ts --outdir ./dist --target=node",
+    "build:watch": "bun run build --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "latest",
+    "totalist": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metonym/dlz"
+  },
+  "homepage": "https://github.com/metonym/dlz",
+  "bugs": "https://github.com/metonym/dlz/issues",
+  "keywords": [
+    "npm package",
+    "exports"
+  ],
+  "files": [
+    "dist",
+    "cli.js"
+  ]
+}
