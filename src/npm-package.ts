@@ -16,6 +16,12 @@ const pkg_json = join(dir, "package.json");
 
 export const essential_files = ["package.json", "README.md", "LICENSE"];
 
+const legacy_mappings = {
+  svelte: "./index.js",
+  main: "./index.js",
+  types: "./index.d.ts",
+};
+
 export function npmPackage() {
   console.time("package");
 
@@ -37,6 +43,10 @@ export function npmPackage() {
   delete pkgJson.devDependencies;
 
   pkgJson.exports = createExports(dir);
+
+  Object.entries(legacy_mappings).forEach(([key, value]) => {
+    pkgJson[key] = value;
+  });
 
   writeFileSync(pkg_json, JSON.stringify(pkgJson, null, 2));
 
