@@ -22,6 +22,22 @@ const legacy_mappings = {
   types: "./index.d.ts",
 };
 
+const pkg_allowlist = [
+  "repository",
+  "keywords",
+  "author",
+  "license",
+  "bugs",
+  "homepage",
+  "name",
+  "version",
+  "description",
+  "type",
+  "dependencies",
+  "peerDependencies",
+  "engines",
+];
+
 export function npmPackage() {
   console.time("package");
 
@@ -39,8 +55,11 @@ export function npmPackage() {
 
   const pkgJson = JSON.parse(readFileSync(pkg_json, "utf8"));
 
-  delete pkgJson.scripts;
-  delete pkgJson.devDependencies;
+  Object.keys(pkgJson).forEach((key) => {
+    if (!pkg_allowlist.includes(key)) {
+      delete pkgJson[key];
+    }
+  });
 
   pkgJson.exports = createExports(dir);
 
