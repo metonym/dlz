@@ -11,13 +11,15 @@
   },
   "scripts": {
     "test": "bun test",
-    "build": "bun build ./src/index.ts --outdir ./dist --target=node",
+    "build": "bun build ./src/index.ts --outdir ./dist --target=node --external totalist",
     "build:watch": "bun run build --watch"
+  },
+  "dependencies": {
+    "totalist": "^3.0.1"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/node": "latest",
-    "totalist": "^3.0.1"
+    "@types/node": "latest"
   },
   "repository": {
     "type": "git",
