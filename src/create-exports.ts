@@ -10,7 +10,9 @@ interface ExportsMap {
   };
 }
 
-const extTs = (name: string) => name.replace(/\.js$/, "") + ".d.ts";
+const removeJs = (name: string) => name.replace(/\.js$/, "");
+
+const extTs = (name: string) => removeJs(name) + ".d.ts";
 
 function isIndexFile(name: string): name is `${string}index.js` {
   return parse(name).base === "index.js";
@@ -37,29 +39,45 @@ const getExports = (filename: string) => {
   }
 
   const is_root = !folder;
+  const file_path = prefixRelative(file);
 
   if (isIndexFile(file)) {
-    const index_path = prefixRelative(file);
-
     return {
       [is_root ? "." : prefixRelative(folder)]: {
-        types: extTs(index_path),
-        import: index_path,
-        svelte: is_root ? index_path : undefined,
+        types: extTs(file_path),
+        import: file_path,
+        svelte: is_root ? file_path : undefined,
       },
     };
   } else {
     if (!isTsOrTypeDef(file)) {
       const ext = parse(file).ext;
-      const wildcard = `*${ext}`;
-      const import_path = prefixRelative(join(folder, wildcard));
+      const import_path = prefixRelative(join(folder, `*${ext}`));
+      const import_path_wildcard = prefixRelative(join(folder, "*"));
 
-      return {
+      const map = {
         [import_path]: {
           types: extHasTypes(ext) ? extTs(import_path) : undefined,
           import: import_path,
         },
       };
+
+      // To support extension-less imports, each JS file should have an explicit mapping.
+      if (ext === ".js") {
+        if (is_root) {
+          map[removeJs(file_path)] = {
+            types: extTs(file_path),
+            import: file_path,
+          };
+        } else {
+          map[import_path_wildcard] = {
+            types: extHasTypes(ext) ? extTs(import_path) : undefined,
+            import: import_path,
+          };
+        }
+      }
+
+      return map;
     }
   }
 };

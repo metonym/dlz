@@ -15,6 +15,10 @@ exports[`create-exports 1`] = `
     "import": "./*.svelte",
     "types": "./*.svelte.d.ts",
   },
+  "./add": {
+    "import": "./add.js",
+    "types": "./add.d.ts",
+  },
   "./nested/*.json": {
     "import": "./nested/*.json",
     "types": undefined,
@@ -28,6 +32,10 @@ exports[`create-exports 1`] = `
     "import": "./subfolder/index.js",
     "svelte": undefined,
     "types": "./subfolder/index.d.ts",
+  },
+  "./subfolder/*": {
+    "import": "./subfolder/*.js",
+    "types": "./subfolder/*.d.ts",
   },
   "./subfolder/*.css": {
     "import": "./subfolder/*.css",
