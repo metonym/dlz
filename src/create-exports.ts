@@ -16,8 +16,8 @@ function isIndexFile(name: string): name is `${string}index.js` {
   return parse(name).base === "index.js";
 }
 
-function isTypeDef(name: string): name is `./${string}.d.ts` {
-  return name.endsWith(".d.ts");
+function isTsOrTypeDef(name: string): name is `./${string}.ts` {
+  return /(.*\.d\.ts$)|(.*\.ts$)/.test(name);
 }
 
 function extHasTypes(ext: string): ext is ".js" | ".svelte" {
@@ -49,7 +49,7 @@ const getExports = (filename: string) => {
       },
     };
   } else {
-    if (!isTypeDef(file)) {
+    if (!isTsOrTypeDef(file)) {
       const ext = parse(file).ext;
       const wildcard = `*${ext}`;
       const import_path = prefixRelative(join(folder, wildcard));
